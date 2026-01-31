@@ -6,14 +6,15 @@ export interface User {
 }
 
 export interface LoginRequest {
-  email: string
-  senha: string
+  username: string
+  password: string
 }
 
 export interface LoginResponse {
-  accessToken: string
-  refreshToken: string
-  usuario: User
+  access_token: string
+  refresh_token: string
+  expires_in: number
+  refresh_expires_in: number
 }
 
 export interface RefreshTokenRequest {
@@ -21,7 +22,10 @@ export interface RefreshTokenRequest {
 }
 
 export interface RefreshTokenResponse {
-  accessToken: string
+  access_token: string
+  refresh_token: string
+  expires_in: number
+  refresh_expires_in: number
 }
 
 export type AuthState = {

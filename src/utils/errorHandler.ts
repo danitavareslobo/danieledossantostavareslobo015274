@@ -1,5 +1,6 @@
-import axios, { AxiosError } from 'axios'
-import { ApiError } from '../types/api'
+import axios from 'axios'
+import type { AxiosError } from 'axios'
+import type { ApiError } from '../types/api'
 
 export function handleApiError(error: unknown): ApiError {
   if (axios.isAxiosError(error)) {

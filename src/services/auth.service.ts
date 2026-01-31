@@ -1,5 +1,5 @@
 import { api } from './api'
-import {
+import type {
   LoginRequest,
   LoginResponse,
   RefreshTokenRequest,
@@ -10,10 +10,11 @@ export const authService = {
   async login(credentials: LoginRequest): Promise<LoginResponse> {
     const response = await api.post<LoginResponse>('/autenticacao/login', credentials)
 
-    if (response.data.accessToken && response.data.refreshToken) {
-      localStorage.setItem('access_token', response.data.accessToken)
-      localStorage.setItem('refresh_token', response.data.refreshToken)
-      localStorage.setItem('user', JSON.stringify(response.data.usuario))
+    if (response.data.access_token && response.data.refresh_token) {
+      localStorage.setItem('access_token', response.data.access_token)
+      localStorage.setItem('refresh_token', response.data.refresh_token)
+      const user = { id: '1', nome: credentials.username, email: credentials.username }
+      localStorage.setItem('user', JSON.stringify(user))
     }
 
     return response.data
@@ -23,8 +24,11 @@ export const authService = {
     const request: RefreshTokenRequest = { refreshToken }
     const response = await api.put<RefreshTokenResponse>('/autenticacao/refresh', request)
 
-    if (response.data.accessToken) {
-      localStorage.setItem('access_token', response.data.accessToken)
+    if (response.data.access_token) {
+      localStorage.setItem('access_token', response.data.access_token)
+    }
+    if (response.data.refresh_token) {
+      localStorage.setItem('refresh_token', response.data.refresh_token)
     }
 
     return response.data
