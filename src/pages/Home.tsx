@@ -1,20 +1,9 @@
 import { Link } from 'react-router-dom'
-import { useTheme } from '../contexts/ThemeContext'
+import { Layout } from '../components/layout/Layout'
 
 export function Home() {
-  const { theme, toggleTheme } = useTheme()
-
   return (
-    <div className="min-h-screen bg-[#f5f5f5] dark:bg-[#1a1a1a] transition-colors duration-300">
-      <div className="absolute top-4 right-4">
-        <button
-          onClick={toggleTheme}
-          className="bg-[#ff69b4] hover:bg-[#ff1493] dark:bg-[#ff1493] dark:hover:bg-[#ff69b4] text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
-        >
-          {theme === 'light' ? '🌙 Tema Escuro' : '☀️ Tema Claro'}
-        </button>
-      </div>
-
+    <Layout>
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold mb-4 text-[#333333] dark:text-[#ffffff] transition-colors duration-300">
@@ -62,6 +51,6 @@ export function Home() {
           </Link>
         </div>
       </div>
-    </div>
+    </Layout>
   )
 }
