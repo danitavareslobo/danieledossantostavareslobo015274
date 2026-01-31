@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom'
 import { Layout } from '../components/layout/Layout'
+import { useAuth } from '../contexts/AuthContext'
 
 export function Home() {
+  const { isAuthenticated } = useAuth()
+
   return (
     <Layout>
       <div className="container mx-auto px-4 py-16">
@@ -42,14 +45,16 @@ export function Home() {
           </Link>
         </div>
 
-        <div className="text-center mt-12">
-          <Link
-            to="/login"
-            className="inline-block bg-[#ffa500] hover:bg-[#ff8c00] dark:bg-[#ff8c00] dark:hover:bg-[#ffa500] text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-300"
-          >
-            Fazer Login
-          </Link>
-        </div>
+        {!isAuthenticated && (
+          <div className="text-center mt-12">
+            <Link
+              to="/login"
+              className="inline-block bg-[#ffa500] hover:bg-[#ff8c00] dark:bg-[#ff8c00] dark:hover:bg-[#ffa500] text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-300"
+            >
+              Fazer Login
+            </Link>
+          </div>
+        )}
       </div>
     </Layout>
   )

@@ -3,6 +3,7 @@ import type { FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Layout } from '../../components/layout/Layout'
 import { useAuth } from '../../contexts/AuthContext'
+import { Button } from '../../components/ui/Button'
 
 export function Login() {
   const navigate = useNavigate()
@@ -93,13 +94,15 @@ export function Login() {
                 </div>
               )}
 
-              <button
+              <Button
                 type="submit"
-                disabled={isLoading}
-                className="w-full bg-[#ff69b4] hover:bg-[#ff1493] dark:bg-[#ff1493] dark:hover:bg-[#ff69b4] text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                variant="primary"
+                size="large"
+                fullWidth
+                isLoading={isLoading}
               >
-                {isLoading ? 'Entrando...' : 'Entrar'}
-              </button>
+                Entrar
+              </Button>
             </form>
           </div>
 
