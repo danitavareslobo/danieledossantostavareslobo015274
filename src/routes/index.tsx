@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Loading } from '../components/common/Loading'
+import { ProtectedRoute } from '../components/common/ProtectedRoute'
 
 const Home = lazy(() => import('../pages/Home').then(module => ({ default: module.Home })))
 const PetsList = lazy(() => import('../pages/Pets/PetsList').then(module => ({ default: module.PetsList })))
@@ -13,8 +14,22 @@ export function AppRoutes() {
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/pets" element={<PetsList />} />
-          <Route path="/tutores" element={<TutoresList />} />
+          <Route
+            path="/pets"
+            element={
+              <ProtectedRoute>
+                <PetsList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/tutores"
+            element={
+              <ProtectedRoute>
+                <TutoresList />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<Home />} />
         </Routes>

@@ -1,10 +1,13 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTheme } from '../../contexts/ThemeContext'
+import { useAuth } from '../../contexts/AuthContext'
 import { useState } from 'react'
 
 export function Header() {
   const { theme, toggleTheme } = useTheme()
+  const { user, isAuthenticated, logout } = useAuth()
   const location = useLocation()
+  const navigate = useNavigate()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const isActive = (path: string) => {
@@ -17,6 +20,12 @@ export function Header() {
       return `${base} bg-[#ff69b4] dark:bg-[#ff1493] text-white`
     }
     return `${base} text-[#333333] dark:text-[#ffffff] hover:bg-[#f5f5f5] dark:hover:bg-[#2d2d2d]`
+  }
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+    setIsMenuOpen(false)
   }
 
   return (
@@ -47,15 +56,35 @@ export function Header() {
             <Link to="/" className={linkClasses('/')}>
               Home
             </Link>
-            <Link to="/pets" className={linkClasses('/pets')}>
-              Pets
-            </Link>
-            <Link to="/tutores" className={linkClasses('/tutores')}>
-              Tutores
-            </Link>
-            <Link to="/login" className={linkClasses('/login')}>
-              Login
-            </Link>
+            {isAuthenticated && (
+              <>
+                <Link to="/pets" className={linkClasses('/pets')}>
+                  Pets
+                </Link>
+                <Link to="/tutores" className={linkClasses('/tutores')}>
+                  Tutores
+                </Link>
+              </>
+            )}
+
+            {isAuthenticated ? (
+              <>
+                <span className="px-4 py-2 text-sm text-[#666666] dark:text-[#cccccc]">
+                  Olá, {user?.nome}
+                </span>
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 rounded-lg bg-[#ffa500] hover:bg-[#ff8c00] dark:bg-[#ff8c00] dark:hover:bg-[#ffa500] text-white font-semibold transition-colors duration-300"
+                >
+                  Sair
+                </button>
+              </>
+            ) : (
+              <Link to="/login" className={linkClasses('/login')}>
+                Login
+              </Link>
+            )}
+
             <button
               onClick={toggleTheme}
               className="ml-2 bg-[#ff69b4] hover:bg-[#ff1493] dark:bg-[#ff1493] dark:hover:bg-[#ff69b4] text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
@@ -74,27 +103,47 @@ export function Header() {
             >
               Home
             </Link>
-            <Link
-              to="/pets"
-              className={linkClasses('/pets')}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Pets
-            </Link>
-            <Link
-              to="/tutores"
-              className={linkClasses('/tutores')}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Tutores
-            </Link>
-            <Link
-              to="/login"
-              className={linkClasses('/login')}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Login
-            </Link>
+            {isAuthenticated && (
+              <>
+                <Link
+                  to="/pets"
+                  className={linkClasses('/pets')}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Pets
+                </Link>
+                <Link
+                  to="/tutores"
+                  className={linkClasses('/tutores')}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Tutores
+                </Link>
+              </>
+            )}
+
+            {isAuthenticated ? (
+              <>
+                <div className="px-4 py-2 text-sm text-[#666666] dark:text-[#cccccc]">
+                  Olá, {user?.nome}
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 rounded-lg bg-[#ffa500] hover:bg-[#ff8c00] dark:bg-[#ff8c00] dark:hover:bg-[#ffa500] text-white font-semibold transition-colors duration-300"
+                >
+                  Sair
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className={linkClasses('/login')}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Login
+              </Link>
+            )}
+
             <button
               onClick={toggleTheme}
               className="bg-[#ff69b4] hover:bg-[#ff1493] dark:bg-[#ff1493] dark:hover:bg-[#ff69b4] text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
