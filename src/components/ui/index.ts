@@ -3,3 +3,5 @@ export { Card, CardHeader, CardTitle, CardContent, CardFooter, CardImage } from 
 export { Input } from './Input'
 export { Spinner } from './Spinner'
 export { Pagination } from './Pagination'
+export { FileUpload } from './FileUpload'
+export { Modal } from './Modal'

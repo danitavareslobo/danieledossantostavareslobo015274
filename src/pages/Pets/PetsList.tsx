@@ -77,13 +77,18 @@ export function PetsList() {
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2 text-[#333333] dark:text-[#ffffff] transition-colors duration-300">
-            🐾 Lista de Pets
-          </h1>
-          <p className="text-[#666666] dark:text-[#cccccc]">
-            Gerencie o cadastro de pets do sistema
-          </p>
+        <div className="mb-8 flex justify-between items-start">
+          <div>
+            <h1 className="text-4xl font-bold mb-2 text-[#333333] dark:text-[#ffffff] transition-colors duration-300">
+              🐾 Lista de Pets
+            </h1>
+            <p className="text-[#666666] dark:text-[#cccccc]">
+              Gerencie o cadastro de pets do sistema
+            </p>
+          </div>
+          <Button onClick={() => navigate('/pets/novo')} variant="primary">
+            ➕ Cadastrar Pet
+          </Button>
         </div>
 
         <Card className="mb-8">

@@ -6,6 +6,7 @@ import { ProtectedRoute } from '../components/common/ProtectedRoute'
 const Home = lazy(() => import('../pages/Home').then(module => ({ default: module.Home })))
 const PetsList = lazy(() => import('../pages/Pets/PetsList').then(module => ({ default: module.PetsList })))
 const PetDetails = lazy(() => import('../pages/Pets/PetDetails').then(module => ({ default: module.PetDetails })))
+const PetForm = lazy(() => import('../pages/Pets/PetForm').then(module => ({ default: module.PetForm })))
 const TutoresList = lazy(() => import('../pages/Tutores/TutoresList').then(module => ({ default: module.TutoresList })))
 const Login = lazy(() => import('../pages/Auth/Login').then(module => ({ default: module.Login })))
 
@@ -24,10 +25,26 @@ export function AppRoutes() {
             }
           />
           <Route
+            path="/pets/novo"
+            element={
+              <ProtectedRoute>
+                <PetForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/pets/:id"
             element={
               <ProtectedRoute>
                 <PetDetails />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/pets/:id/editar"
+            element={
+              <ProtectedRoute>
+                <PetForm />
               </ProtectedRoute>
             }
           />
