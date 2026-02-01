@@ -9,6 +9,7 @@ const PetDetails = lazy(() => import('../pages/Pets/PetDetails').then(module => 
 const PetForm = lazy(() => import('../pages/Pets/PetForm').then(module => ({ default: module.PetForm })))
 const TutoresList = lazy(() => import('../pages/Tutores/TutoresList').then(module => ({ default: module.TutoresList })))
 const TutorDetails = lazy(() => import('../pages/Tutores/TutorDetails').then(module => ({ default: module.TutorDetails })))
+const TutorForm = lazy(() => import('../pages/Tutores/TutorForm').then(module => ({ default: module.TutorForm })))
 const Login = lazy(() => import('../pages/Auth/Login').then(module => ({ default: module.Login })))
 
 export function AppRoutes() {
