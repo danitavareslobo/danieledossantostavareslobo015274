@@ -6,13 +6,10 @@ export interface ApiError {
 
 export interface PaginatedResponse<T> {
   content: T[]
-  totalPages: number
-  totalElements: number
+  page: number
   size: number
-  number: number
-  first: boolean
-  last: boolean
-  empty: boolean
+  total: number
+  pageCount: number
 }
 
 export interface ApiResponse<T> {

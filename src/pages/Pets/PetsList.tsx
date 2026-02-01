@@ -30,22 +30,22 @@ export function PetsList() {
   })
 
   useEffect(() => {
-    carregarPets()
-  }, [filtros.page])
-
-  const carregarPets = async () => {
-    try {
-      setIsLoading(true)
-      setError(null)
-      const data = await petsService.listar(filtros)
-      setPets(data)
-    } catch (err) {
-      const apiError = handleApiError(err)
-      setError(apiError.message)
-    } finally {
-      setIsLoading(false)
+    const carregarPets = async () => {
+      try {
+        setIsLoading(true)
+        setError(null)
+        const data = await petsService.listar(filtros)
+        setPets(data)
+      } catch (err) {
+        const apiError = handleApiError(err)
+        setError(apiError.message)
+      } finally {
+        setIsLoading(false)
+      }
     }
-  }
+
+    carregarPets()
+  }, [filtros])
 
   const handleBuscar = () => {
     setFiltros({
@@ -54,7 +54,6 @@ export function PetsList() {
       raca: buscaTemp.raca,
       page: 0,
     })
-    carregarPets()
   }
 
   const handleLimparFiltros = () => {
@@ -65,9 +64,6 @@ export function PetsList() {
       page: 0,
       size: 10,
     })
-    setTimeout(() => {
-      carregarPets()
-    }, 0)
   }
 
   const handlePageChange = (page: number) => {
@@ -91,13 +87,14 @@ export function PetsList() {
         </div>
 
         <Card className="mb-8">
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <Input
               label="Buscar por nome"
               placeholder="Digite o nome do pet"
               value={buscaTemp.nome}
               onChange={(e) => setBuscaTemp({ ...buscaTemp, nome: e.target.value })}
               onKeyPress={(e) => e.key === 'Enter' && handleBuscar()}
+              fullWidth
             />
 
             <Input
@@ -106,16 +103,17 @@ export function PetsList() {
               value={buscaTemp.raca}
               onChange={(e) => setBuscaTemp({ ...buscaTemp, raca: e.target.value })}
               onKeyPress={(e) => e.key === 'Enter' && handleBuscar()}
+              fullWidth
             />
+          </div>
 
-            <div className="flex items-end gap-2">
-              <Button onClick={handleBuscar} variant="primary">
-                Buscar
-              </Button>
-              <Button onClick={handleLimparFiltros} variant="outline">
-                Limpar
-              </Button>
-            </div>
+          <div className="flex gap-2">
+            <Button onClick={handleBuscar} variant="primary">
+              Buscar
+            </Button>
+            <Button onClick={handleLimparFiltros} variant="outline">
+              Limpar
+            </Button>
           </div>
         </Card>
 
@@ -127,7 +125,7 @@ export function PetsList() {
 
         {isLoading ? (
           <Loading fullScreen={false} message="Carregando pets..." />
-        ) : pets?.empty ? (
+        ) : pets?.content.length === 0 ? (
           <Card>
             <p className="text-center text-[#666666] dark:text-[#cccccc] py-8">
               {filtros.nome || filtros.raca
@@ -173,11 +171,11 @@ export function PetsList() {
               ))}
             </div>
 
-            {pets && pets.totalPages > 1 && (
+            {pets && (
               <Pagination
-                currentPage={pets.number}
-                totalPages={pets.totalPages}
-                totalItems={pets.totalElements}
+                currentPage={pets.page}
+                totalPages={pets.pageCount}
+                totalItems={pets.total}
                 itemsPerPage={pets.size}
                 onPageChange={handlePageChange}
               />
