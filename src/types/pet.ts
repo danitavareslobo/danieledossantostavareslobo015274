@@ -13,18 +13,16 @@ export interface Pet {
   foto?: Foto
 }
 
-export interface Tutor {
-  id: number
-  nome: string
-  telefone: string
-  email?: string
-  endereco?: string
-  cpf?: number
-  foto?: Foto
-}
-
 export interface PetCompleto extends Pet {
-  tutores?: Tutor[]
+  tutores?: Array<{
+    id: number
+    nome: string
+    telefone: string
+    email?: string
+    endereco?: string
+    cpf?: string
+    foto?: Foto
+  }>
 }
 
 export interface CreatePetRequest {

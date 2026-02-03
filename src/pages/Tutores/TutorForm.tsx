@@ -14,7 +14,7 @@ export function TutorForm() {
   const navigate = useNavigate()
   const isEditMode = !!id
 
-  const [formData, setFormData] = useState<CreateTutorRequest>({
+  const [formData, setFormData] = useState({
     nome: '',
     telefone: '',
     email: '',
@@ -22,7 +22,7 @@ export function TutorForm() {
     endereco: '',
   })
 
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(isEditMode)
   const [isSaving, setIsSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -34,8 +34,8 @@ export function TutorForm() {
           setError(null)
           const data = await tutoresService.buscarPorId(Number(id))
           setFormData({
-            nome: data.nome,
-            telefone: data.telefone,
+            nome: data.nome || '',
+            telefone: data.telefone || '',
             email: data.email || '',
             cpf: data.cpf || '',
             endereco: data.endereco || '',
@@ -69,12 +69,21 @@ export function TutorForm() {
       setIsSaving(true)
       setError(null)
 
-      const payload: CreateTutorRequest | UpdateTutorRequest = {
+      const payload: any = {
         nome: formData.nome.trim(),
         telefone: formData.telefone.trim(),
-        email: formData.email?.trim() || undefined,
-        cpf: formData.cpf?.trim() || undefined,
-        endereco: formData.endereco?.trim() || undefined,
+      }
+
+      if (formData.email && formData.email.trim()) {
+        payload.email = formData.email.trim()
+      }
+
+      if (formData.cpf && formData.cpf.trim()) {
+        payload.cpf = formData.cpf.trim()
+      }
+
+      if (formData.endereco && formData.endereco.trim()) {
+        payload.endereco = formData.endereco.trim()
       }
 
       if (isEditMode) {
@@ -92,10 +101,10 @@ export function TutorForm() {
     }
   }
 
-  const handleChange = (field: keyof CreateTutorRequest, value: string) => {
+  const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({
       ...prev,
-      [field]: value,
+      [field]: value || '',
     }))
   }
 
@@ -139,7 +148,6 @@ export function TutorForm() {
                 <Input
                   label="Telefone"
                   placeholder="Digite o telefone"
-                  mask="phone"
                   value={formData.telefone}
                   onChange={(e) => handleChange('telefone', e.target.value)}
                   required
@@ -158,7 +166,6 @@ export function TutorForm() {
                 <Input
                   label="CPF"
                   placeholder="Digite o CPF (opcional)"
-                  mask="cpf"
                   value={formData.cpf}
                   onChange={(e) => handleChange('cpf', e.target.value)}
                   fullWidth

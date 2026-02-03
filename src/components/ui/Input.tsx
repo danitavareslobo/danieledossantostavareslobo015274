@@ -29,8 +29,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const inputElement = mask ? (
       <InputMask
         mask={masks[mask]}
+        value={String(props.value || '')}
+        onChange={props.onChange}
+        onBlur={props.onBlur}
+        onFocus={props.onFocus}
+        placeholder={props.placeholder}
+        disabled={props.disabled}
+        required={props.required}
+        name={props.name}
+        id={props.id}
         className={combinedClasses}
-        {...props}
       >
         {(inputProps: InputHTMLAttributes<HTMLInputElement>) => (
           <input ref={ref} {...inputProps} />

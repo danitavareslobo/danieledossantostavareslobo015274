@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Button } from '../ui/Button'
 import { Input } from '../ui/Input'
-import { Modal } from '../ui/Modal'
 import { petsService } from '../../services/pets.service'
 import { handleApiError } from '../../utils/errorHandler'
 import type { Pet } from '../../types/pet'
