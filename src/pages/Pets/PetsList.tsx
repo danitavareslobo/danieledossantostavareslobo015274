@@ -8,6 +8,7 @@ import { Button } from '../../components/ui/Button'
 import { Loading } from '../../components/common/Loading'
 import { petsService } from '../../services/pets.service'
 import { handleApiError } from '../../utils/errorHandler'
+import { useDebounce } from '../../hooks/useDebounce'
 import type { Pet, PetFilters } from '../../types/pet'
 import type { PaginatedResponse } from '../../types/api'
 
@@ -29,6 +30,18 @@ export function PetsList() {
     raca: '',
   })
 
+  const debouncedNome = useDebounce(buscaTemp.nome, 500)
+  const debouncedRaca = useDebounce(buscaTemp.raca, 500)
+
+  useEffect(() => {
+    setFiltros(prev => ({
+      ...prev,
+      nome: debouncedNome,
+      raca: debouncedRaca,
+      page: 0,
+    }))
+  }, [debouncedNome, debouncedRaca])
+
   useEffect(() => {
     const carregarPets = async () => {
       try {
@@ -46,15 +59,6 @@ export function PetsList() {
 
     carregarPets()
   }, [filtros])
-
-  const handleBuscar = () => {
-    setFiltros({
-      ...filtros,
-      nome: buscaTemp.nome,
-      raca: buscaTemp.raca,
-      page: 0,
-    })
-  }
 
   const handleLimparFiltros = () => {
     setBuscaTemp({ nome: '', raca: '' })
@@ -98,7 +102,6 @@ export function PetsList() {
               placeholder="Digite o nome do pet"
               value={buscaTemp.nome}
               onChange={(e) => setBuscaTemp({ ...buscaTemp, nome: e.target.value })}
-              onKeyPress={(e) => e.key === 'Enter' && handleBuscar()}
               fullWidth
             />
 
@@ -107,17 +110,13 @@ export function PetsList() {
               placeholder="Digite a raça"
               value={buscaTemp.raca}
               onChange={(e) => setBuscaTemp({ ...buscaTemp, raca: e.target.value })}
-              onKeyPress={(e) => e.key === 'Enter' && handleBuscar()}
               fullWidth
             />
           </div>
 
           <div className="flex gap-2">
-            <Button onClick={handleBuscar} variant="primary">
-              Buscar
-            </Button>
             <Button onClick={handleLimparFiltros} variant="outline">
-              Limpar
+              Limpar Filtros
             </Button>
           </div>
         </Card>

@@ -8,6 +8,7 @@ import { Button } from '../../components/ui/Button'
 import { Loading } from '../../components/common/Loading'
 import { tutoresService } from '../../services/tutores.service'
 import { handleApiError } from '../../utils/errorHandler'
+import { useDebounce } from '../../hooks/useDebounce'
 import type { Tutor, TutorFilters } from '../../types/tutor'
 import type { PaginatedResponse } from '../../types/api'
 
@@ -29,6 +30,18 @@ export function TutoresList() {
     telefone: '',
   })
 
+  const debouncedNome = useDebounce(buscaTemp.nome, 500)
+  const debouncedTelefone = useDebounce(buscaTemp.telefone, 500)
+
+  useEffect(() => {
+    setFiltros(prev => ({
+      ...prev,
+      nome: debouncedNome,
+      telefone: debouncedTelefone,
+      page: 0,
+    }))
+  }, [debouncedNome, debouncedTelefone])
+
   useEffect(() => {
     const carregarTutores = async () => {
       try {
@@ -46,15 +59,6 @@ export function TutoresList() {
 
     carregarTutores()
   }, [filtros])
-
-  const handleBuscar = () => {
-    setFiltros({
-      ...filtros,
-      nome: buscaTemp.nome,
-      telefone: buscaTemp.telefone,
-      page: 0,
-    })
-  }
 
   const handleLimparFiltros = () => {
     setBuscaTemp({ nome: '', telefone: '' })
@@ -98,7 +102,6 @@ export function TutoresList() {
               placeholder="Digite o nome do tutor"
               value={buscaTemp.nome}
               onChange={(e) => setBuscaTemp({ ...buscaTemp, nome: e.target.value })}
-              onKeyPress={(e) => e.key === 'Enter' && handleBuscar()}
               fullWidth
             />
 
@@ -107,17 +110,13 @@ export function TutoresList() {
               placeholder="Digite o telefone"
               value={buscaTemp.telefone}
               onChange={(e) => setBuscaTemp({ ...buscaTemp, telefone: e.target.value })}
-              onKeyPress={(e) => e.key === 'Enter' && handleBuscar()}
               fullWidth
             />
           </div>
 
           <div className="flex gap-2">
-            <Button onClick={handleBuscar} variant="primary">
-              Buscar
-            </Button>
             <Button onClick={handleLimparFiltros} variant="outline">
-              Limpar
+              Limpar Filtros
             </Button>
           </div>
         </Card>
