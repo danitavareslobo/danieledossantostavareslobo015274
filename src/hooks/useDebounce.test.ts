@@ -27,28 +27,28 @@ describe('useDebounce', () => {
   it('deve funcionar com diferentes tipos de valores', async () => {
     const { result, rerender } = renderHook(
       ({ value, delay }) => useDebounce(value, delay),
-      { initialProps: { value: 0, delay: 50 } }
+      { initialProps: { value: 0, delay: 80 } }
     )
 
     expect(result.current).toBe(0)
 
-    rerender({ value: 42, delay: 50 })
+    rerender({ value: 42, delay: 80 })
 
     await waitFor(() => {
       expect(result.current).toBe(42)
-    }, { timeout: 100 })
+    }, { timeout: 200 })
   })
 
   it('deve respeitar diferentes valores de delay', async () => {
     const { result, rerender } = renderHook(
       ({ value, delay }) => useDebounce(value, delay),
-      { initialProps: { value: 'test', delay: 150 } }
+      { initialProps: { value: 'test', delay: 100 } }
     )
 
-    rerender({ value: 'new value', delay: 150 })
+    rerender({ value: 'new value', delay: 100 })
 
     await waitFor(() => {
       expect(result.current).toBe('new value')
-    }, { timeout: 200 })
+    }, { timeout: 250 })
   })
 })

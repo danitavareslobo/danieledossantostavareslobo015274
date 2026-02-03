@@ -27,8 +27,3 @@ export function handleApiError(error: unknown): ApiError {
     status: 500,
   }
 }
-
-export function getErrorMessage(error: unknown): string {
-  const apiError = handleApiError(error)
-  return apiError.message
-}

@@ -11,8 +11,3 @@ export interface PaginatedResponse<T> {
   total: number
   pageCount: number
 }
-
-export interface ApiResponse<T> {
-  data: T
-  message?: string
-}

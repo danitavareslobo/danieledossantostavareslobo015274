@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardImage } from './Card'
+import { Card, CardHeader, CardTitle, CardContent, CardImage } from './Card'
 
 describe('Card', () => {
   it('deve renderizar children', () => {
@@ -64,13 +64,6 @@ describe('CardContent', () => {
   it('deve renderizar conteúdo', () => {
     render(<CardContent>Conteúdo</CardContent>)
     expect(screen.getByText('Conteúdo')).toBeInTheDocument()
-  })
-})
-
-describe('CardFooter', () => {
-  it('deve renderizar rodapé', () => {
-    render(<CardFooter>Rodapé</CardFooter>)
-    expect(screen.getByText('Rodapé')).toBeInTheDocument()
   })
 })
 

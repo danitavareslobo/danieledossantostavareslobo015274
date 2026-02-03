@@ -1,5 +1,5 @@
 export { Button } from './Button'
-export { Card, CardHeader, CardTitle, CardContent, CardFooter, CardImage } from './Card'
+export { Card, CardHeader, CardTitle, CardContent, CardImage } from './Card'
 export { Input } from './Input'
 export { Spinner } from './Spinner'
 export { Pagination } from './Pagination'

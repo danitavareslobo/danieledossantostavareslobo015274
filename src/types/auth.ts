@@ -27,11 +27,3 @@ export interface RefreshTokenResponse {
   expires_in: number
   refresh_expires_in: number
 }
-
-export type AuthState = {
-  user: User | null
-  accessToken: string | null
-  refreshToken: string | null
-  isAuthenticated: boolean
-  isLoading: boolean
-}

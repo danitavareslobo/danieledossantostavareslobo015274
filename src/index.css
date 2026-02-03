@@ -2,24 +2,6 @@
 
 @variant dark (&:is(.dark *));
 
-@theme {
-  --color-light-primary: #ffffff;
-  --color-light-secondary: #f5f5f5;
-  --color-light-accent-pink: #ff69b4;
-  --color-light-accent-green: #bfff00;
-  --color-light-accent-orange: #ffa500;
-  --color-light-text-primary: #333333;
-  --color-light-text-secondary: #666666;
-
-  --color-dark-primary: #1a1a1a;
-  --color-dark-secondary: #2d2d2d;
-  --color-dark-accent-pink: #ff1493;
-  --color-dark-accent-green: #9acd32;
-  --color-dark-accent-orange: #ff8c00;
-  --color-dark-text-primary: #ffffff;
-  --color-dark-text-secondary: #cccccc;
-}
-
 @layer base {
   :root {
     font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

@@ -7,7 +7,6 @@ import { Button } from '../../components/ui/Button'
 import { Loading } from '../../components/common/Loading'
 import { tutoresService } from '../../services/tutores.service'
 import { handleApiError } from '../../utils/errorHandler'
-import type { CreateTutorRequest, UpdateTutorRequest } from '../../types/tutor'
 
 export function TutorForm() {
   const { id } = useParams<{ id: string }>()

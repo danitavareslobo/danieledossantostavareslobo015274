@@ -74,19 +74,6 @@ export function CardContent({ children, className = '' }: CardContentProps) {
   )
 }
 
-interface CardFooterProps {
-  children: ReactNode
-  className?: string
-}
-
-export function CardFooter({ children, className = '' }: CardFooterProps) {
-  return (
-    <div className={`mt-4 pt-4 border-t border-[#e0e0e0] dark:border-[#404040] ${className}`}>
-      {children}
-    </div>
-  )
-}
-
 interface CardImageProps {
   src: string
   alt: string
