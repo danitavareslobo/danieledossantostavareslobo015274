@@ -2,6 +2,19 @@
 
 Sistema web desenvolvido em React + TypeScript para gerenciamento de pets e seus tutores, integrando com API REST pública do Estado de Mato Grosso.
 
+## Dados do Processo Seletivo
+
+| Campo | Informação |
+|-------|------------|
+| **N° Inscrição** | 16353 |
+| **Nome** | DANIELE DOS SANTOS TAVARES LOBO |
+| **Processo Seletivo** | PROCESSO SELETIVO CONJUNTO Nº 001/2026/SEPLAG e demais Órgãos |
+| **Vaga** | Engenheiro da Computação - Sênior |
+| **Cidade** | Cuiabá |
+| **Local** | SECRETARIA DE ESTADO DE PLANEJAMENTO E GESTÃO |
+| **Cargo** | ANALISTA DE TECNOLOGIA DA INFORMAÇÃO |
+| **Perfil** | ENGENHEIRO DA COMPUTAÇÃO - SÊNIOR |
+
 ## Funcionalidades
 
 ### Autenticação
@@ -292,6 +305,57 @@ https://pet-manager-api.geia.vip/q/swagger-ui/
 - Paginação server-side
 - Memoização onde necessário
 - Build otimizado com code splitting
+
+## Docker / Containerização
+
+O projeto está empacotado em container Docker com todas as dependências isoladas, conforme requisito do processo seletivo.
+
+### Executar com Docker Compose
+
+```bash
+# Build e iniciar o container
+docker-compose up -d
+
+# Verificar status
+docker-compose ps
+
+# Ver logs
+docker-compose logs -f
+
+# Parar container
+docker-compose down
+```
+
+A aplicação estará disponível em: `http://localhost:8080`
+
+### Executar com Docker (sem Compose)
+
+```bash
+# Build da imagem
+docker build -t pet-manager-web .
+
+# Executar container
+docker run -d -p 8080:80 --name pet-manager-web pet-manager-web
+
+# Parar e remover
+docker stop pet-manager-web
+docker rm pet-manager-web
+```
+
+### Detalhes da Containerização
+
+- **Multi-stage build**: Stage 1 compila com Node.js, Stage 2 serve com Nginx
+- **Imagem final**: nginx:alpine (extremamente leve)
+- **Porta exposta**: 80 (mapeada para 8080 no host)
+- **Nginx**: Configurado com rewrite rules para SPA e compressão gzip
+- **Dependências**: Todas isoladas no container
+
+### Arquivos Docker
+
+- `Dockerfile`: Definição da imagem multi-stage
+- `docker-compose.yml`: Orquestração do container
+- `.dockerignore`: Exclusão de arquivos desnecessários
+- `nginx.conf`: Configuração do servidor web
 
 ## Build e Deploy
 
