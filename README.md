@@ -15,6 +15,12 @@ Sistema web desenvolvido em React + TypeScript para gerenciamento de pets e seus
 | **Cargo** | ANALISTA DE TECNOLOGIA DA INFORMAÇÃO |
 | **Perfil** | ENGENHEIRO DA COMPUTAÇÃO - SÊNIOR |
 
+## 🚀 Aplicação em Produção
+
+**Acesse a aplicação funcionando:** [https://gerenc-pets-tutores.netlify.app/](https://gerenc-pets-tutores.netlify.app/)
+
+A aplicação está hospedada no Netlify com deploy automático a partir do repositório Git. Todas as funcionalidades estão disponíveis para teste em tempo real.
+
 ## Funcionalidades
 
 ### Autenticação
@@ -377,10 +383,12 @@ npm run preview
 
 ### Deploy
 
+**Este projeto está deployado no Netlify:** [https://gerenc-pets-tutores.netlify.app/](https://gerenc-pets-tutores.netlify.app/)
+
 O projeto pode ser deployado em qualquer serviço de hospedagem estática:
 
+- **Netlify** ✅: Deploy automático via GitHub (configurado com `netlify.toml`)
 - **Vercel**: `vercel deploy`
-- **Netlify**: Conectar repositório ou arrastar pasta `dist/`
 - **GitHub Pages**: Configurar gh-pages
 - **Nginx/Apache**: Copiar conteúdo de `dist/` para servidor
 
